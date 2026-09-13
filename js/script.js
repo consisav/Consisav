@@ -77,9 +77,9 @@ const SECTOR_ICONS = {
       ]
     },
     software: {
-      tag: '02 — software inteligente',
-      title: 'Software inteligente',
-      desc: 'Diseñamos, creamos, desarrollamos y administramos aplicaciones inteligentes totalmente certificadas, en modalidad de renta, venta o híbrido, para distintos tipos de negocio: pequeñas, medianas y grandes, incluyendo grupos corporativos, totalmente integradas con contabilidad, así como segmentos fiscales.',
+      tag: '02 — software inteligente integrado',
+      title: 'Software inteligente integrado',
+      desc: 'Diseñamos, creamos, desarrollamos y administramos aplicaciones inteligentes totalmente certificadas, en modalidad de uso: renta, venta o híbrido, para distintos tipos de negocio: pequeños, medianos y grandes, incluyendo grupos corporativos, totalmente integradas con contabilidad, así como segmentos fiscales.',
       itemsLabel: 'Sectores que atendemos',
       items: [
         { label: 'Puntos de venta', icon: 'cart' },
@@ -161,7 +161,7 @@ const SECTOR_ICONS = {
     educacion: {
       tag: '05 — educación y capacitación',
       title: 'Educación y capacitación',
-      desc: 'Capacitamos a tu equipo en herramientas de oficina y sistemas colaborativos, administración de sistemas operativos, bases de datos y desarrollo web y móvil, software y recursos de inteligencia artificial, control de versiones, y diseño y administración de páginas web.',
+      desc: 'Capacitación y educación profesional con tecnología de punta, con acompañamiento en la creación de tus proyectos. Formamos a tu equipo en herramientas de oficina y sistemas colaborativos, administración de sistemas operativos, bases de datos y desarrollo web y móvil, software y recursos de inteligencia artificial, control de versiones, y diseño y administración de páginas web.',
       itemsLabel: 'Temas que cubrimos',
       items: [
         { label: 'Office: Word, Excel, PowerPoint, Canva', icon: 'audit' },
