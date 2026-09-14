@@ -155,7 +155,8 @@ const SECTOR_ICONS = {
         { label: 'Redes y comunicaciones', icon: 'cable' },
         { label: 'Call Centers', icon: 'headset' },
         { label: 'Contact Centers', icon: 'headset' },
-        { label: 'Electricidad', icon: 'bolt' }
+        { label: 'Electricidad', icon: 'bolt' },
+        { label: 'Mantenimiento de equipos', icon: 'gear' }
       ]
     },
     educacion: {
@@ -233,7 +234,7 @@ const SECTOR_ICONS = {
 
   /* scroll-spy: highlight current section in the main nav */
   const navLinks = document.querySelectorAll('.main-nav > ul > li > a[data-section]');
-  const spySections = ['inicio', 'nosotros', 'servicios', 'contacto']
+  const spySections = ['inicio', 'nosotros', 'servicios', 'fortalezas', 'contacto']
     .map(id => document.getElementById(id)).filter(Boolean);
 
   const spyObserver = new IntersectionObserver((entries) => {
