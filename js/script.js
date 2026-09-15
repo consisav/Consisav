@@ -1,4 +1,173 @@
-const SECTOR_ICONS = {
+let currentLang = 'es';
+
+  const I18N = {
+    'nav.inicio': { es: 'Inicio', en: 'Home' },
+    'nav.nosotros': { es: 'Nosotros', en: 'About' },
+    'nav.servicios': { es: 'Servicios', en: 'Services' },
+    'nav.fortalezas': { es: 'Fortalezas', en: 'Strengths' },
+    'nav.contacto': { es: 'Contacto', en: 'Contact' },
+    'dd.inteligencia.t': { es: 'Inteligencia de negocios', en: 'Business Intelligence' },
+    'dd.inteligencia.s': { es: 'Reportes y datos para decidir', en: 'Reports and data to decide' },
+    'dd.redes.t': { es: 'Redes y comunicaciones', en: 'Networks & Communications' },
+    'dd.redes.s': { es: 'Infraestructura de red y telefonía', en: 'Network and telephony infrastructure' },
+    'dd.software.t': { es: 'Software Inteligente Integrado', en: 'Integrated Smart Software' },
+    'dd.software.s': { es: 'Sistemas a la medida de tu operación', en: 'Systems tailored to your operation' },
+    'dd.hardware.t': { es: 'Hardware', en: 'Hardware' },
+    'dd.hardware.s': { es: 'Compra, venta y renta de equipo', en: 'Equipment purchase, sale and rental' },
+    'dd.soporte.t': { es: 'Soporte técnico', en: 'Technical Support' },
+    'dd.soporte.s': { es: 'Administración, soporte y mantenimiento', en: 'Administration, support and maintenance' },
+    'dd.educacion.t': { es: 'Educación y capacitación', en: 'Education & Training' },
+    'dd.educacion.s': { es: 'Formación para tu equipo', en: 'Training for your team' },
+
+    'hero.tag1': { es: 'Integración de servicios corporativos', en: 'Corporate services integration' },
+    'hero.tag2': { es: 'Tecnología orientada a servicios', en: 'Service-oriented technology' },
+    'hero.h1': { es: 'Servicios inteligentes<br>integrados a tu alcance', en: 'Smart services<br>integrated within your reach' },
+    'hero.lede': { es: 'Ofrecemos soluciones inteligentes con tecnología de punta certificadas en áreas como: software, hardware, redes comunicaciones y seguridad informática, respaldadas por experiencia nacional e internacional. Trabajamos con disciplina, capacidad, responsabilidad, honestidad y transparencia, preparados en el momento que lo necesites, utilizando recursos de contingencia para las soluciones de tu negocio o empresa ajustando los costos accesibles a tus necesidades.',
+                 en: 'We offer smart, cutting-edge technology solutions certified across areas such as software, hardware, networks, communications and information security, backed by national and international experience. We work with discipline, capability, responsibility, honesty and transparency — ready whenever you need us, with contingency resources for your business, and costs adjusted to fit your needs.' },
+    'hero.btn1': { es: 'Hablemos de tu empresa', en: "Let's talk about your business" },
+    'hero.btn2': { es: 'Ver áreas de servicio', en: 'View service areas' },
+
+    'orbit.inteligencia': { es: 'Inteligencia<br>de negocios', en: 'Business<br>Intelligence' },
+    'orbit.software': { es: 'Software<br>Inteligente<br>Integrado', en: 'Smart<br>Integrated<br>Software' },
+    'orbit.redes': { es: 'Redes y comunicaciones', en: 'Networks & Communications' },
+    'orbit.educacion': { es: 'Educación y<br>Capacitación', en: 'Education &<br>Training' },
+
+    'detail.servicios': { es: 'servicios', en: 'services' },
+    'detail.choose': { es: 'Elegí un área', en: 'Choose an area' },
+    'detail.chooseDesc': { es: 'Presiona uno de los íconos para ver qué incluye cada área de servicio.', en: 'Click one of the icons to see what each service area includes.' },
+
+    'serv.h2': { es: 'Seis áreas, un mismo sistema', en: 'Six areas, one integrated system' },
+    'serv.p': { es: 'Cada área se diseña para conectar con las demás, no para funcionar por separado.', en: 'Each area is designed to connect with the others, not to work on its own.' },
+    'serv.tag': { es: 'servicios / 2026', en: 'services / 2026' },
+
+    'nosotros.h2': { es: 'Ingeniería y soporte técnico, en un mismo equipo', en: 'Engineering and technical support, in one team' },
+    'nosotros.p': { es: 'Desde 1997 diseñamos e implementamos soluciones de tecnología para empresas de todo tamaño y grupos corporativos — con ingenieros en sistemas, masters en bases de datos y especialistas en soporte técnico trabajando bajo un mismo equipo.',
+                    en: 'Since 1997 we have designed and implemented technology solutions for businesses of every size and corporate groups — with systems engineers, database masters, and technical support specialists working as one team.' },
+    'cap1.h': { es: 'Desarrollo de software', en: 'Software development' },
+    'cap1.p': { es: 'Sistemas cliente-servidor, colaborativos, y aplicaciones web y móviles con inteligencia artificial, diseñados para empresas pequeñas, medianas, grandes y grupos corporativos.',
+                en: 'Client-server and collaborative systems, and web and mobile applications with artificial intelligence, designed for small, medium and large businesses and corporate groups.' },
+    'cap2.h': { es: 'Soporte técnico especializado', en: 'Specialized technical support' },
+    'cap2.p': { es: 'Redes, comunicaciones, firewalls y seguridad informática; infraestructura, call y data centers, telefonía y videoseguridad; soporte a usuarios y servicios de IT fijos o en outsourcing.',
+                en: 'Networks, communications, firewalls and information security; infrastructure, call and data centers, telephony and video security; user support and in-house or outsourced IT services.' },
+    'cap3.h': { es: 'Consultoría tecnológica integral', en: 'Comprehensive technology consulting' },
+    'cap3.p': { es: 'No solo software: adquisición, integración y administración de hardware, redes, comunicaciones, seguridad informática e internet, con soluciones a nivel operativo, fiscal, administrativo y contable-financiero.',
+                en: 'Not just software: acquisition, integration and management of hardware, networks, communications, information security and internet, with solutions at the operational, tax, administrative and accounting-financial level.' },
+    'cap4.h': { es: 'Educación y capacitación tecnológica', en: 'Technology education and training' },
+    'cap4.p': { es: 'Formación inteligente con tecnología de punta en ingeniería de software avanzado y desarrollo de software y aplicaciones para todo tipo de negocio, soporte técnico, y acompañamiento en el desarrollo de proyectos y temas relacionados con IT.',
+                en: 'Smart, cutting-edge training in advanced software engineering and software and application development for any type of business, technical support, and hands-on support throughout project development and IT-related topics.' },
+    'fact.founded': { es: 'fundada', en: 'founded' },
+    'fact.focus': { es: 'enfoque', en: 'focus' },
+    'fact.focus.v': { es: 'Software + soporte técnico + capacitación + consultoría financiera de negocios', en: 'Software + technical support + training + business financial consulting' },
+    'fact.coverage': { es: 'cobertura', en: 'coverage' },
+    'fact.contact': { es: 'contacto', en: 'contact' },
+
+    'schema.cap': { es: 'Capacitación', en: 'Training' },
+    'schema.redes': { es: 'Redes', en: 'Networks' },
+    'schema.software': { es: 'Software', en: 'Software' },
+    'schema.hardware': { es: 'Hardware', en: 'Hardware' },
+    'schema.soporte': { es: 'Soporte', en: 'Support' },
+    'schema.caption': { es: 'un punto de contacto, seis áreas conectadas', en: 'one point of contact, six connected areas' },
+
+    'fort.h2': { es: 'Fortalezas', en: 'Strengths' },
+    'fort.p': { es: 'Lo que nos distingue en cada proyecto.', en: 'What sets us apart in every project.' },
+    'fort.tag': { es: 'fortalezas', en: 'strengths' },
+    'fort.b1tag': { es: '01 — objetivos', en: '01 — objectives' },
+    'fort.b1h3': { es: 'Objetivos del servicio y software', en: 'Service and software objectives' },
+    'fort.h1.h4': { es: 'Costos accesibles y competitivos del mercado', en: 'Accessible, market-competitive pricing' },
+    'fort.tag1': { es: 'Acorde a tu presupuesto', en: 'Tailored to your budget' },
+    'fort.tag2': { es: 'Distintas modalidades de pago', en: 'Multiple payment options' },
+    'fort.tag3': { es: 'Evaluación y cotización sin costo', en: 'Free evaluation and quote' },
+    'fort.obj1': { es: 'Intuitivo y fácil de manejar', en: 'Intuitive and easy to use' },
+    'fort.obj2': { es: 'Sencillo, práctico y con inteligencia', en: 'Simple, practical and smart' },
+    'fort.obj3': { es: 'Integrado en todas las áreas financieras, presupuesto y fiscal', en: 'Integrated across all financial, budget and tax areas' },
+    'fort.obj4': { es: 'Comunicación cercana y acompañamiento constante, ideal para quienes necesitan orientación técnica', en: 'Close communication and constant support, ideal for those who need technical guidance' },
+    'fort.obj5': { es: 'Que tu proyecto sea rentable y se vea como una inversión con pronta recuperación de costos', en: 'A profitable project that feels like an investment, with a fast return on cost' },
+    'fort.obj6': { es: 'Que entre en producción de 1 a 7 días hábiles con los prototipos iniciales', en: 'Goes into production within 1 to 7 business days with initial prototypes' },
+    'fort.b2tag': { es: '02 — qué ofrecemos', en: '02 — what we offer' },
+    'fort.b2h3': { es: 'Qué ofrecemos', en: 'What we offer' },
+    'fort.ofr1': { es: 'Desarrollo de aplicaciones móviles Android/iOS y multiplataforma', en: 'Android/iOS and cross-platform mobile app development' },
+    'fort.ofr2': { es: 'Sistemas y plataformas web multipropósito', en: 'Multi-purpose web systems and platforms' },
+    'fort.ofr3': { es: 'Implementación de APIs', en: 'API implementation' },
+    'fort.ofr4': { es: 'Diseño de bocetos', en: 'Wireframe and mockup design' },
+    'fort.ofr5': { es: 'Asesorías personalizadas y gratuitas', en: 'Free, personalized consulting' },
+    'fort.ofr6': { es: 'Buen manejo de proyectos de gran escala', en: 'Strong management of large-scale projects' },
+    'fort.ofr7': { es: 'Buen enfoque al cliente', en: 'Strong client focus' },
+    'fort.ofr8': { es: 'Excelente soporte post-proyecto', en: 'Excellent post-project support' },
+    'fort.ofr9': { es: 'Recursos capacitados y multilingües', en: 'Trained, multilingual staff' },
+    'fort.ofr10': { es: 'Estándares internacionales de calidad', en: 'International quality standards' },
+    'fort.ofr11': { es: 'Buen enfoque en diseño centrado en el usuario', en: 'Strong focus on user-centered design' },
+    'fort.ofr12': { es: 'Apoyo en migración de información con recursos inteligentes', en: 'Support for data migration using smart resources' },
+    'fort.sectorsh4': { es: 'Amplia experiencia en sectores como', en: 'Extensive experience across sectors such as' },
+    'fort.sec1': { es: 'Salud, servicios médicos, laboratorios, centros de diagnóstico', en: 'Health, medical services, labs, diagnostic centers' },
+    'fort.sec2': { es: 'Educación y capacitación tecnológica', en: 'Education and technology training' },
+    'fort.sec3': { es: 'Contables, financieros y de auditoría', en: 'Accounting, finance and auditing' },
+    'fort.sec4': { es: 'Sistemas de procesos y producción', en: 'Process and production systems' },
+    'fort.sec5': { es: 'Banca, seguros, corretaje de seguros', en: 'Banking, insurance, insurance brokerage' },
+    'fort.sec6': { es: 'Puntos de venta, controles de inventario', en: 'Points of sale, inventory control' },
+    'fort.sec7': { es: 'Nóminas, planillas y recursos humanos', en: 'Payroll and human resources' },
+    'fort.sec8': { es: 'Administración automotriz', en: 'Automotive administration' },
+    'fort.sec9': { es: 'Hotelería y restaurantes', en: 'Hospitality and restaurants' },
+    'fort.sec10': { es: 'Constructoras y procesos administrativos', en: 'Construction and administrative processes' },
+    'fort.sec11': { es: 'Cooperativas de crédito e inversiones', en: 'Credit and investment cooperatives' },
+    'fort.sec12': { es: 'Agronomía y agricultura', en: 'Agronomy and agriculture' },
+    'fort.sec13': { es: 'Farmacéuticas: producción, venta y distribución', en: 'Pharmaceuticals: production, sales and distribution' },
+    'fort.sec14': { es: 'Entre otros', en: 'Among others' },
+
+    'contact.h2': { es: 'Hablemos', en: "Let's talk" },
+    'contact.p': { es: 'Contactarnos para asesorarte sobre el sistema, soporte técnico o hardware que necesiten y te respondemos lo más pronto posible.',
+                   en: 'Contact us for advice on the system, technical support or hardware you need, and we will get back to you as soon as possible.' },
+    'contact.tag': { es: 'contacto', en: 'contact' },
+    'contact.address': { es: 'Avenida Hincapié 2-51 zona 13, Edificio "C", interior parqueo — Ciudad de Guatemala, Guatemala',
+                          en: 'Avenida Hincapié 2-51 zona 13, Building "C", parking interior — Guatemala City, Guatemala' },
+    'contact.schedule': { es: 'Lunes a viernes, y sábados medio día en horario de oficina. Casos especiales en días festivos en horarios especiales.',
+                          en: 'Monday to Friday, and Saturday half-day, during office hours. Special cases on holidays with special schedules.' },
+    'contact.replymethod': { es: 'Respondemos por teléfono o correo', en: 'We respond by phone or email' },
+    'form.nombre': { es: 'Nombre', en: 'Name' },
+    'form.nombre.ph': { es: 'Tu nombre', en: 'Your name' },
+    'form.empresa': { es: 'Empresa', en: 'Company' },
+    'form.empresa.ph': { es: 'Nombre de tu empresa', en: 'Your company name' },
+    'form.correo': { es: 'Correo', en: 'Email' },
+    'form.mensaje': { es: '¿Qué sistema necesitás conectar?', en: 'What system do you need to connect?' },
+    'form.mensaje.ph': { es: 'Contanos brevemente tu situación', en: 'Briefly tell us about your situation' },
+    'form.note': { es: 'Al enviar, se abrirá WhatsApp con tu mensaje listo para enviar a Consisav.', en: 'When you submit, WhatsApp will open with your message ready to send to Consisav.' },
+    'form.submit': { es: 'Enviar mensaje', en: 'Send message' },
+
+    'footer.copy': { es: '© 2026 Consisav. Consultoría en Sistemas Avanzados.', en: '© 2026 Consisav. Advanced Systems Consulting.' }
+  };
+
+  function applyLanguage(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const entry = I18N[el.getAttribute('data-i18n')];
+      if (entry) el.textContent = entry[lang];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const entry = I18N[el.getAttribute('data-i18n-html')];
+      if (entry) el.innerHTML = entry[lang];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const entry = I18N[el.getAttribute('data-i18n-placeholder')];
+      if (entry) el.setAttribute('placeholder', entry[lang]);
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+    });
+
+    if (currentArea) {
+      openArea(currentArea);
+    } else {
+      const tagEl2 = document.getElementById('detail-tag');
+      const titleEl2 = document.getElementById('detail-title');
+      const descEl2 = document.getElementById('detail-desc');
+      if (tagEl2) tagEl2.textContent = I18N['detail.servicios'][lang];
+      if (titleEl2) titleEl2.textContent = I18N['detail.choose'][lang];
+      if (descEl2) descEl2.textContent = I18N['detail.chooseDesc'][lang];
+    }
+  }
+
+  const SECTOR_ICONS = {
     hospital: '<path d="M9 21V13a3 3 0 0 1 6 0v8"/><path d="M12 3v6M9 6h6"/><rect x="4" y="9" width="16" height="12" rx="1"/>',
     clinic: '<path d="M4.5 12.5 12 20l7.5-7.5a4.2 4.2 0 0 0-6-6L12 8l-1.5-1.5a4.2 4.2 0 0 0-6 6Z"/>',
     hotel: '<rect x="2" y="15" width="20" height="5" rx="1"/><path d="M4 15v-3a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v3"/><path d="M4 20v2M20 20v2"/>',
@@ -58,123 +227,134 @@ const SECTOR_ICONS = {
 
   const areaData = {
     inteligencia: {
-      tag: 'núcleo — inteligencia de negocios',
-      title: 'Inteligencia de negocios',
-      desc: 'Tu información contable, financiera, operativa y administrativa totalmente integrada, utilizando la menor cantidad de información para ser convertida en reportes claros, para decidir con datos y no solo con intuición, sino con inteligencia.',
-      items: ['Reportes y dashboards', 'Análisis de datos', 'Indicadores de gestión']
+      tag: { es: 'núcleo — inteligencia de negocios', en: 'core — business intelligence' },
+      title: { es: 'Inteligencia de negocios', en: 'Business Intelligence' },
+      desc: { es: 'Tu información contable, financiera, operativa y administrativa totalmente integrada, utilizando la menor cantidad de información para ser convertida en reportes claros, para decidir con datos y no solo con intuición, sino con inteligencia.',
+              en: 'Your accounting, financial, operational and administrative information, fully integrated and distilled into clear reports — so you decide with data and intelligence, not just intuition.' },
+      itemsLabel: { es: 'Incluye', en: 'Includes' },
+      items: [
+        { label: { es: 'Reportes y dashboards', en: 'Reports and dashboards' }, icon: 'chart' },
+        { label: { es: 'Análisis de datos', en: 'Data analysis' }, icon: 'database' },
+        { label: { es: 'Indicadores de gestión', en: 'Management indicators' }, icon: 'gear' }
+      ]
     },
     redes: {
-      tag: '01 — redes y comunicaciones',
-      title: 'Redes y comunicaciones',
-      desc: 'Infraestructura de red y comunicación empresarial, para que tus sistemas y sucursales se hablen entre sí sin cortes — incluyendo construcción de Data Centers, Call Centers y Contact Centers, y venta de recursos tecnológicos de punta.',
-      itemsLabel: 'Qué incluye',
+      tag: { es: '01 — redes y comunicaciones', en: '01 — networks & communications' },
+      title: { es: 'Redes y comunicaciones', en: 'Networks & Communications' },
+      desc: { es: 'Infraestructura de red y comunicación empresarial, para que tus sistemas y sucursales se hablen entre sí sin cortes — incluyendo construcción de Data Centers, Call Centers y Contact Centers, y venta de recursos tecnológicos de punta.',
+              en: 'Enterprise network and communication infrastructure, so your systems and branches talk to each other without interruptions — including Data Center, Call Center and Contact Center construction, and sale of cutting-edge tech resources.' },
+      itemsLabel: { es: 'Qué incluye', en: 'What it includes' },
       items: [
-        { label: 'Redes internas', icon: 'network' },
-        { label: 'Telefonía y comunicaciones', icon: 'phone' },
-        { label: 'Monitoreo y seguridad de red', icon: 'shield' },
-        { label: 'Firewalls', icon: 'firewall' },
-        { label: 'Uso eficiente del Internet', icon: 'wifi' }
+        { label: { es: 'Redes internas', en: 'Internal networks' }, icon: 'network' },
+        { label: { es: 'Telefonía y comunicaciones', en: 'Telephony and communications' }, icon: 'phone' },
+        { label: { es: 'Monitoreo y seguridad de red', en: 'Network monitoring and security' }, icon: 'shield' },
+        { label: { es: 'Firewalls', en: 'Firewalls' }, icon: 'firewall' },
+        { label: { es: 'Uso eficiente del Internet', en: 'Efficient internet usage' }, icon: 'wifi' }
       ]
     },
     software: {
-      tag: '02 — software inteligente integrado',
-      title: 'Software inteligente integrado',
-      desc: 'Diseñamos, creamos, desarrollamos y administramos aplicaciones inteligentes totalmente certificadas, en modalidad de uso: renta, venta o híbrido, para distintos tipos de negocio: pequeños, medianos y grandes, incluyendo grupos corporativos, totalmente integradas con contabilidad, así como segmentos fiscales.',
-      itemsLabel: 'Sectores que atendemos',
+      tag: { es: '02 — software inteligente integrado', en: '02 — integrated smart software' },
+      title: { es: 'Software inteligente integrado', en: 'Integrated Smart Software' },
+      desc: { es: 'Diseñamos, creamos, desarrollamos y administramos aplicaciones inteligentes totalmente certificadas, en modalidad de uso: renta, venta o híbrido, para distintos tipos de negocio: pequeños, medianos y grandes, incluyendo grupos corporativos, totalmente integradas con contabilidad, así como segmentos fiscales.',
+              en: 'We design, create, develop and manage fully certified smart applications, available as rental, purchase, or a hybrid model, for businesses of every size — including corporate groups — fully integrated with accounting and tax reporting.' },
+      itemsLabel: { es: 'Sectores que atendemos', en: 'Sectors we serve' },
       items: [
-        { label: 'Puntos de venta', icon: 'cart' },
-        { label: 'Inventarios, puntos de venta y facturación', icon: 'cart' },
-        { label: 'Contabilidades y auditorías', icon: 'audit' },
-        { label: 'Finanzas', icon: 'chart' },
-        { label: 'Gestión de negocios', icon: 'briefcase' },
-        { label: 'Restaurantes', icon: 'food' },
-        { label: 'Hospitales', icon: 'hospital' },
-        { label: 'Clínicas médicas y oftalmológicas', icon: 'clinic' },
-        { label: 'Servicios médicos', icon: 'pulse' },
-        { label: 'Laboratorios y centros de diagnóstico', icon: 'flask' },
-        { label: 'Farmacéuticas y droguerías: producción, venta y distribución', icon: 'pill' },
-        { label: 'Educación y administración de colegios', icon: 'cap' },
-        { label: 'Hotelería', icon: 'hotel' },
-        { label: 'Constructoras', icon: 'build' },
-        { label: 'Administración automotriz', icon: 'car' },
-        { label: 'Seguros y Banca', icon: 'bank' },
-        { label: 'Corretaje de Seguros', icon: 'shield' },
-        { label: 'Cooperativas de créditos e inversiones', icon: 'coins' },
-        { label: 'Call y contact centers', icon: 'headset' },
-        { label: 'Nóminas, Planillas y Recursos Humanos', icon: 'payroll' },
-        { label: 'Recursos humanos', icon: 'users' },
-        { label: 'Control de procesos', icon: 'sliders' },
-        { label: 'Producción y procesos', icon: 'gear' },
-        { label: 'Administración de fincas', icon: 'map' },
-        { label: 'Agronomía y agricultura', icon: 'leaf' },
-        { label: 'Vacacional y tiempo compartido', icon: 'umbrella' },
-        { label: 'Servicios funerarios', icon: 'flower' },
-        { label: 'Entre otros', icon: 'more' }
+        { label: { es: 'Puntos de venta', en: 'Points of sale' }, icon: 'cart' },
+        { label: { es: 'Inventarios, puntos de venta y facturación', en: 'Inventory, POS and invoicing' }, icon: 'cart' },
+        { label: { es: 'Contabilidades y auditorías', en: 'Accounting and auditing' }, icon: 'audit' },
+        { label: { es: 'Finanzas', en: 'Finance' }, icon: 'chart' },
+        { label: { es: 'Gestión de negocios', en: 'Business management' }, icon: 'briefcase' },
+        { label: { es: 'Restaurantes', en: 'Restaurants' }, icon: 'food' },
+        { label: { es: 'Hospitales', en: 'Hospitals' }, icon: 'hospital' },
+        { label: { es: 'Clínicas médicas y oftalmológicas', en: 'Medical and eye clinics' }, icon: 'clinic' },
+        { label: { es: 'Servicios médicos', en: 'Medical services' }, icon: 'pulse' },
+        { label: { es: 'Laboratorios y centros de diagnóstico', en: 'Labs and diagnostic centers' }, icon: 'flask' },
+        { label: { es: 'Farmacéuticas y droguerías: producción, venta y distribución', en: 'Pharmaceuticals: production, sales and distribution' }, icon: 'pill' },
+        { label: { es: 'Educación y administración de colegios', en: 'Education and school administration' }, icon: 'cap' },
+        { label: { es: 'Hotelería', en: 'Hospitality' }, icon: 'hotel' },
+        { label: { es: 'Constructoras', en: 'Construction companies' }, icon: 'build' },
+        { label: { es: 'Administración automotriz', en: 'Automotive administration' }, icon: 'car' },
+        { label: { es: 'Seguros y Banca', en: 'Insurance and Banking' }, icon: 'bank' },
+        { label: { es: 'Corretaje de Seguros', en: 'Insurance brokerage' }, icon: 'shield' },
+        { label: { es: 'Cooperativas de créditos e inversiones', en: 'Credit and investment cooperatives' }, icon: 'coins' },
+        { label: { es: 'Call y contact centers', en: 'Call and contact centers' }, icon: 'headset' },
+        { label: { es: 'Nóminas, Planillas y Recursos Humanos', en: 'Payroll and Human Resources' }, icon: 'payroll' },
+        { label: { es: 'Recursos humanos', en: 'Human resources' }, icon: 'users' },
+        { label: { es: 'Control de procesos', en: 'Process control' }, icon: 'sliders' },
+        { label: { es: 'Producción y procesos', en: 'Production and processes' }, icon: 'gear' },
+        { label: { es: 'Administración de fincas', en: 'Farm/estate administration' }, icon: 'map' },
+        { label: { es: 'Agronomía y agricultura', en: 'Agronomy and agriculture' }, icon: 'leaf' },
+        { label: { es: 'Vacacional y tiempo compartido', en: 'Vacation and timeshare' }, icon: 'umbrella' },
+        { label: { es: 'Servicios funerarios', en: 'Funeral services' }, icon: 'flower' },
+        { label: { es: 'Entre otros', en: 'Among others' }, icon: 'more' }
       ]
     },
     hardware: {
-      tag: '03 — hardware',
-      title: 'Hardware',
-      desc: 'Compra y venta de equipo a precios competitivos, con opciones de renta directa, importaciones propias, sistemas de video seguridad, e instalación, creación y administración de Call Center y Contact Center.',
-      itemsLabel: 'Equipos y suministros',
+      tag: { es: '03 — hardware', en: '03 — hardware' },
+      title: { es: 'Hardware', en: 'Hardware' },
+      desc: { es: 'Compra y venta de equipo a precios competitivos, con opciones de renta directa, importaciones propias, sistemas de video seguridad, e instalación, creación y administración de Call Center y Contact Center.',
+              en: 'Equipment purchase and sale at competitive prices, with direct rental options, our own imports, video security systems, and installation, setup and management of Call Centers and Contact Centers.' },
+      itemsLabel: { es: 'Equipos y suministros', en: 'Equipment and supplies' },
       items: [
-        { label: 'Computadoras', icon: 'computer' },
-        { label: 'Laptops', icon: 'laptop' },
-        { label: 'Tabletas', icon: 'tablet' },
-        { label: 'Servidores', icon: 'server' },
-        { label: 'Impresoras', icon: 'printer' },
-        { label: 'Firewalls', icon: 'firewall' },
-        { label: 'Switches', icon: 'switchnet' },
-        { label: 'Sistemas de video seguridad', icon: 'camera' },
-        { label: 'Video conferencias', icon: 'videocam' },
-        { label: 'Smart Home', icon: 'smarthome' },
-        { label: 'Materiales para redes y comunicaciones', icon: 'cable' },
-        { label: 'Fibra óptica', icon: 'fiber' },
-        { label: 'Doc Station', icon: 'dock' },
-        { label: 'Componentes de PC', icon: 'chip' },
-        { label: 'Suministros de cómputo', icon: 'box' },
-        { label: 'Accesorios de cómputo', icon: 'mouse' },
-        { label: 'UPS interactivos y online', icon: 'battery' },
-        { label: 'Racks y gabinetes', icon: 'rack' },
-        { label: 'Entre otros', icon: 'more' }
+        { label: { es: 'Computadoras', en: 'Computers' }, icon: 'computer' },
+        { label: { es: 'Laptops', en: 'Laptops' }, icon: 'laptop' },
+        { label: { es: 'Tabletas', en: 'Tablets' }, icon: 'tablet' },
+        { label: { es: 'Servidores', en: 'Servers' }, icon: 'server' },
+        { label: { es: 'Impresoras', en: 'Printers' }, icon: 'printer' },
+        { label: { es: 'Firewalls', en: 'Firewalls' }, icon: 'firewall' },
+        { label: { es: 'Switches', en: 'Switches' }, icon: 'switchnet' },
+        { label: { es: 'Sistemas de video seguridad', en: 'Video security systems' }, icon: 'camera' },
+        { label: { es: 'Video conferencias', en: 'Video conferencing' }, icon: 'videocam' },
+        { label: { es: 'Smart Home', en: 'Smart Home' }, icon: 'smarthome' },
+        { label: { es: 'Materiales para redes y comunicaciones', en: 'Networking and communications materials' }, icon: 'cable' },
+        { label: { es: 'Fibra óptica', en: 'Fiber optics' }, icon: 'fiber' },
+        { label: { es: 'Doc Station', en: 'Docking stations' }, icon: 'dock' },
+        { label: { es: 'Componentes de PC', en: 'PC components' }, icon: 'chip' },
+        { label: { es: 'Suministros de cómputo', en: 'Computing supplies' }, icon: 'box' },
+        { label: { es: 'Accesorios de cómputo', en: 'Computer accessories' }, icon: 'mouse' },
+        { label: { es: 'UPS interactivos y online', en: 'Interactive and online UPS units' }, icon: 'battery' },
+        { label: { es: 'Racks y gabinetes', en: 'Racks and cabinets' }, icon: 'rack' },
+        { label: { es: 'Entre otros', en: 'Among others' }, icon: 'more' }
       ]
     },
     soporte: {
-      tag: '04 — soporte técnico',
-      title: 'Soporte técnico',
-      desc: 'Uso de software y conectividad remota — Office, Internet, inteligencia artificial, sistemas administrativos internos y gestión de proyectos — con administración y soporte técnico eficiente, outsourcing en administración de tecnologías IT, mantenimiento preventivo y correctivo, e instalación y configuración de equipos.',
-      itemsLabel: 'Qué administramos y soportamos',
+      tag: { es: '04 — soporte técnico', en: '04 — technical support' },
+      title: { es: 'Soporte técnico', en: 'Technical Support' },
+      desc: { es: 'Uso de software y conectividad remota — Office, Internet, inteligencia artificial, sistemas administrativos internos y gestión de proyectos — con administración y soporte técnico eficiente, outsourcing en administración de tecnologías IT, mantenimiento preventivo y correctivo, e instalación y configuración de equipos.',
+              en: 'Software use and remote connectivity — Office, internet, artificial intelligence, internal administrative systems and project management — with efficient technical support, IT outsourcing, preventive and corrective maintenance, and equipment installation and setup.' },
+      itemsLabel: { es: 'Qué administramos y soportamos', en: 'What we manage and support' },
       items: [
-        { label: 'Internet', icon: 'wifi' },
-        { label: 'Computadoras', icon: 'computer' },
-        { label: 'Servidores', icon: 'server' },
-        { label: 'Plantas telefónicas', icon: 'phone' },
-        { label: 'Firewalls', icon: 'firewall' },
-        { label: 'Switches', icon: 'switchnet' },
-        { label: 'Impresoras', icon: 'printer' },
-        { label: 'Redes y comunicaciones', icon: 'cable' },
-        { label: 'Call Centers', icon: 'headset' },
-        { label: 'Contact Centers', icon: 'headset' },
-        { label: 'Electricidad', icon: 'bolt' },
-        { label: 'Mantenimiento de equipos', icon: 'gear' }
+        { label: { es: 'Internet', en: 'Internet' }, icon: 'wifi' },
+        { label: { es: 'Computadoras', en: 'Computers' }, icon: 'computer' },
+        { label: { es: 'Servidores', en: 'Servers' }, icon: 'server' },
+        { label: { es: 'Plantas telefónicas', en: 'Phone systems' }, icon: 'phone' },
+        { label: { es: 'Firewalls', en: 'Firewalls' }, icon: 'firewall' },
+        { label: { es: 'Switches', en: 'Switches' }, icon: 'switchnet' },
+        { label: { es: 'Impresoras', en: 'Printers' }, icon: 'printer' },
+        { label: { es: 'Redes y comunicaciones', en: 'Networks and communications' }, icon: 'cable' },
+        { label: { es: 'Call Centers', en: 'Call Centers' }, icon: 'headset' },
+        { label: { es: 'Contact Centers', en: 'Contact Centers' }, icon: 'headset' },
+        { label: { es: 'Electricidad', en: 'Electrical systems' }, icon: 'bolt' },
+        { label: { es: 'Mantenimiento de equipos', en: 'Equipment maintenance' }, icon: 'gear' }
       ]
     },
     educacion: {
-      tag: '05 — educación y capacitación',
-      title: 'Educación y capacitación',
-      desc: 'Capacitación y educación profesional con tecnología de punta, con acompañamiento en la creación de tus proyectos. Formamos a tu equipo en herramientas de oficina y sistemas colaborativos, administración de sistemas operativos, bases de datos y desarrollo web y móvil, software y recursos de inteligencia artificial, control de versiones, y diseño y administración de páginas web.',
-      itemsLabel: 'Temas que cubrimos',
+      tag: { es: '05 — educación y capacitación', en: '05 — education & training' },
+      title: { es: 'Educación y capacitación', en: 'Education & Training' },
+      desc: { es: 'Capacitación y educación profesional con tecnología de punta, con acompañamiento en la creación de tus proyectos. Formamos a tu equipo en herramientas de oficina y sistemas colaborativos, administración de sistemas operativos, bases de datos y desarrollo web y móvil, software y recursos de inteligencia artificial, control de versiones, y diseño y administración de páginas web.',
+              en: 'Professional training with cutting-edge technology, alongside support in building your projects. We train your team in office and collaboration tools, operating system administration, databases, web and mobile development, AI software and resources, version control, and web design and administration.' },
+      itemsLabel: { es: 'Temas que cubrimos', en: 'Topics we cover' },
       items: [
-        { label: 'Office: Word, Excel, PowerPoint, Canva', icon: 'audit' },
-        { label: 'Sistemas colaborativos', icon: 'users' },
-        { label: 'Sistemas operativos: Windows y Linux', icon: 'computer' },
-        { label: 'Bases de datos: Oracle, Supabase y otros', icon: 'database' },
-        { label: 'Desarrollo web y móvil sobre Oracle: Forms, Developer, APEX', icon: 'code' },
-        { label: 'Software y recursos de inteligencia artificial: ChatGPT, Claude y otros', icon: 'chip' },
-        { label: 'Control de versiones: Git, GitHub, GitHub Desktop', icon: 'git' },
-        { label: 'Diseño y administración de páginas web', icon: 'globe' },
-        { label: 'Técnicas de ingeniería de software avanzado', icon: 'gear' },
-        { label: 'Diseño, técnicas de desarrollo y administración de sistemas inteligentes', icon: 'layers' }
+        { label: { es: 'Office: Word, Excel, PowerPoint, Canva', en: 'Office: Word, Excel, PowerPoint, Canva' }, icon: 'audit' },
+        { label: { es: 'Sistemas colaborativos', en: 'Collaborative systems' }, icon: 'users' },
+        { label: { es: 'Sistemas operativos: Windows y Linux', en: 'Operating systems: Windows and Linux' }, icon: 'computer' },
+        { label: { es: 'Bases de datos: Oracle, Supabase y otros', en: 'Databases: Oracle, Supabase and others' }, icon: 'database' },
+        { label: { es: 'Desarrollo web y móvil sobre Oracle: Forms, Developer, APEX', en: 'Web and mobile development on Oracle: Forms, Developer, APEX' }, icon: 'code' },
+        { label: { es: 'Software y recursos de inteligencia artificial: ChatGPT, Claude y otros', en: 'AI software and resources: ChatGPT, Claude and others' }, icon: 'chip' },
+        { label: { es: 'Control de versiones: Git, GitHub, GitHub Desktop', en: 'Version control: Git, GitHub, GitHub Desktop' }, icon: 'git' },
+        { label: { es: 'Diseño y administración de páginas web', en: 'Web page design and administration' }, icon: 'globe' },
+        { label: { es: 'Técnicas de ingeniería de software avanzado', en: 'Advanced software engineering techniques' }, icon: 'gear' },
+        { label: { es: 'Diseño, técnicas de desarrollo y administración de sistemas inteligentes', en: 'Design, development techniques and administration of smart systems' }, icon: 'layers' }
       ]
     }
   };
@@ -187,22 +367,22 @@ const SECTOR_ICONS = {
   const listEl = document.getElementById('detail-list');
   const detailPanel = document.getElementById('detail-panel');
 
+  let currentArea = null;
+
   function openArea(areaKey){
     const area = areaData[areaKey];
     if(!area) return;
+    currentArea = areaKey;
     buttons.forEach(b => b.setAttribute('aria-expanded', b.dataset.area === areaKey ? 'true' : 'false'));
-    tagEl.textContent = area.tag;
-    titleEl.textContent = area.title;
-    descEl.textContent = area.desc;
-    listLabelEl.textContent = area.itemsLabel || 'Incluye';
+    tagEl.textContent = area.tag[currentLang];
+    titleEl.textContent = area.title[currentLang];
+    descEl.textContent = area.desc[currentLang];
+    listLabelEl.textContent = (area.itemsLabel && area.itemsLabel[currentLang]) || (currentLang === 'en' ? 'Includes' : 'Incluye');
     listEl.innerHTML = area.items.map(i => {
-      if (typeof i === 'object') {
-        const svg = SECTOR_ICONS[i.icon] || '';
-        return `<li class="has-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6">${svg}</svg><span>${i.label}</span></li>`;
-      }
-      return `<li>${i}</li>`;
+      const svg = SECTOR_ICONS[i.icon] || '';
+      return `<li class="has-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6">${svg}</svg><span>${i.label[currentLang]}</span></li>`;
     }).join('');
-    detailPanel.classList.toggle('is-long', area.items.length > 0 && typeof area.items[0] === 'object');
+    detailPanel.classList.add('is-long');
   }
 
   buttons.forEach(btn => {
@@ -265,4 +445,9 @@ const SECTOR_ICONS = {
 
     const url = `https://wa.me/50258656329?text=${encodeURIComponent(texto)}`;
     window.open(url, '_blank');
+  });
+
+  /* language switch */
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
   });
